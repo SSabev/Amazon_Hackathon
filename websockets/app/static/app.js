@@ -3,6 +3,7 @@ $(function() {
         ws = new WebSocket("ws://" + document.domain + ":8000/websocket");
         ws.onmessage = function (msg) {
             var message = JSON.parse(msg.data);
+            console.log(message);
             $("p#log").append(message.output + '<hr />');
         };
     };
