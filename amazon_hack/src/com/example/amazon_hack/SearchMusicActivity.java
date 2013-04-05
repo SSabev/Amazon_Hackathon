@@ -1,28 +1,39 @@
 package com.example.amazon_hack;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.SearchManager;
-import android.util.Log;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import android.speech.RecognizerIntent;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.os.Build;
 
 public class SearchMusicActivity extends Activity {
 	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
 	private ImageButton mbtSpeak;
+	private String token = "";
+
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -33,6 +44,7 @@ public class SearchMusicActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,13 +72,16 @@ public class SearchMusicActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    token = extras.getString("MUSIC_TOKEN");
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_music);
 		// metTextHint = (EditText) findViewById(R.id.etTextHint);
 		// mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
 		// msTextMatches = (Spinner) findViewById(R.id.sNoOfMatches);
 		mbtSpeak = (ImageButton) findViewById(R.id.btSpeak);
-		Log.i("yolo", "success");
 		checkVoiceRecognition();
 	}
 
@@ -140,10 +155,26 @@ public class SearchMusicActivity extends Activity {
 						startActivity(search);
 					} else {
 						// populate the Matches
-						Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
-						search.putExtra(SearchManager.QUERY,
-								textMatchList.get(0));
-						startActivity(search);
+						HttpClient httpclient = new DefaultHttpClient();
+						HttpPost httppost = new HttpPost("http://localhost:8000/listen/" + token);
+						try {
+						    // Add your data
+						    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+						    nameValuePairs.add(new BasicNameValuePair("content", textMatchList.get(0)));
+						    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+						    // Execute HTTP Post Request
+						    HttpResponse response = httpclient.execute(httppost);
+
+						} catch (ClientProtocolException e) {
+						    // TODO Auto-generated catch block
+						} catch (IOException e) {
+						    // TODO Auto-generated catch block
+						}
+//						Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
+//						search.putExtra(SearchManager.QUERY,
+//								textMatchList.get(0));
+//						startActivity(search);
 						// mlvTextMatches
 						// .setAdapter(new ArrayAdapter<String>(this,
 						// android.R.layout.simple_list_item_1,
