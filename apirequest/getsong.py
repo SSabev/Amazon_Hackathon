@@ -14,7 +14,8 @@ def getsong(query):
     try:
         tracks = client.get('/tracks', q=query)
     except HTTPError, e:
-        print("The server returned 503, please reformat the query")
+        print("The server returned the following error:")
+        print(e)
         return -1
 
     # Variables to hold the temporary found best songs
@@ -32,7 +33,7 @@ def getsong(query):
                     continue
                 if track.playback_count > maxviewersshort:
                     maxviewersshort = track.playback_count
-                    maxviewersshortid = track.id
+                    maxviewershortid = track.id
             else:
                 if "remix" in track.title.lower():  # Avoid remixes
                     continue
@@ -46,6 +47,6 @@ def getsong(query):
 
     # If we have only found short samples, at least return the ID of the sample
     if maxviewersid == 0:
-        return maxviewersshortid
+        return maxviewershortid
     else:
         return maxviewersid
