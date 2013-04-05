@@ -37,13 +37,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class drawable {
         public static final int camera=0x7f020000;
         public static final int connect=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int mic=0x7f020003;
+        public static final int curly=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int mic=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0008;
-        public static final int btSpeak=0x7f0a0007;
+        public static final int action_settings=0x7f0a0009;
+        public static final int btSpeak=0x7f0a0008;
         public static final int connect_message=0x7f0a0001;
+        public static final int curly_bottom=0x7f0a0007;
         public static final int enter_code=0x7f0a0002;
         public static final int imageView1=0x7f0a0000;
         public static final int imageView2=0x7f0a0006;

@@ -19,10 +19,13 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +37,6 @@ public class SearchMusicActivity extends Activity {
 	private ImageButton mbtSpeak;
 	private String token = "";
 
-
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */
@@ -44,7 +46,6 @@ public class SearchMusicActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,8 +75,9 @@ public class SearchMusicActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-		    token = extras.getString("MUSIC_TOKEN");
+			token = extras.getString("MUSIC_TOKEN");
 		}
+		Log.i("TOKEN BABY", token);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_music);
 		// metTextHint = (EditText) findViewById(R.id.etTextHint);
@@ -133,6 +135,7 @@ public class SearchMusicActivity extends Activity {
 		startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
@@ -155,26 +158,28 @@ public class SearchMusicActivity extends Activity {
 						startActivity(search);
 					} else {
 						// populate the Matches
-						HttpClient httpclient = new DefaultHttpClient();
-						HttpPost httppost = new HttpPost("http://localhost:8000/listen/" + token);
-						try {
-						    // Add your data
-						    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-						    nameValuePairs.add(new BasicNameValuePair("content", textMatchList.get(0)));
-						    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+						// HttpClient httpclient = new DefaultHttpClient();
+						// HttpPost httppost = new
+						// HttpPost("http://54.244.123.24:8000/listen/" +
+						// token);
+						String url = "http://54.244.123.24:8000/listen/"
+								+ token;
+						// Add your data
+						List<NameValuePair> nvp = new ArrayList<NameValuePair>(
+								1);
+						nvp.add(new BasicNameValuePair("content", textMatchList
+								.get(0)));
+						String search_data = textMatchList.get(0);
+						// httppost.setEntity(new UrlEncodedFormEntity(nvp));
 
-						    // Execute HTTP Post Request
-						    HttpResponse response = httpclient.execute(httppost);
+						// Execute HTTP Post Request
 
-						} catch (ClientProtocolException e) {
-						    // TODO Auto-generated catch block
-						} catch (IOException e) {
-						    // TODO Auto-generated catch block
-						}
-//						Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
-//						search.putExtra(SearchManager.QUERY,
-//								textMatchList.get(0));
-//						startActivity(search);
+						new SendLinkTask().execute(url, search_data);
+
+						// Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
+						// search.putExtra(SearchManager.QUERY,
+						// textMatchList.get(0));
+						// startActivity(search);
 						// mlvTextMatches
 						// .setAdapter(new ArrayAdapter<String>(this,
 						// android.R.layout.simple_list_item_1,

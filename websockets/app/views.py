@@ -29,7 +29,7 @@ def listen(websocket):
     if request.method == 'GET':
         return render_template('listen.html', websocket=websocket)
     else:
-        params = request.params
+        params = request.values['content']
         print params
         print "yolo"
 

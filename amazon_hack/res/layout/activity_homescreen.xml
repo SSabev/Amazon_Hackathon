@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".HomescreenActivity" >
 
-        <ImageView
+    <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,4 +77,13 @@
         android:onClick="scanQR"
         android:src="@drawable/camera" >
     </ImageView>
+   <ImageView
+	    android:id="@+id/curly_bottom"
+	    android:src="@drawable/curly"
+	    android:layout_width="wrap_content"
+        android:layout_below="@id/imageView2"
+        android:layout_centerHorizontal="true"
+	    android:layout_height="wrap_content">
+    </ImageView>
+   
 </RelativeLayout>
