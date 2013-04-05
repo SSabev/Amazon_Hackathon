@@ -1,6 +1,7 @@
 # coding: utf-8
 import random
 
+
 class ClientList(object):
     """
     Adding a simple client list of all the active connections.

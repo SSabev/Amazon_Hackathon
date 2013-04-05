@@ -26,4 +26,11 @@ def remove_clients():
 
 @app.route('/listen/<websocket>', methods=["GET", "POST"])
 def listen(websocket):
-    return render_template('listen.html', websocket=websocket)
+    if request.method == 'GET':
+        return render_template('listen.html', websocket=websocket)
+    else:
+        params = request.params
+        print params
+        print "yolo"
+
+        return render_template('listen.html', websocket=websocket)
