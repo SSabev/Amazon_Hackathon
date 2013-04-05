@@ -8,6 +8,9 @@
 package com.example.amazon_hack;
 
 public final class R {
+    public static final class array {
+        public static final int saNoOfMatches=0x7f070000;
+    }
     public static final class attr {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -35,34 +38,45 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int camera=0x7f020000;
         public static final int connect=0x7f020001;
         public static final int ic_launcher=0x7f020002;
+        public static final int mic=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f090007;
-        public static final int connect_message=0x7f090001;
-        public static final int enter_code=0x7f090002;
-        public static final int imageView1=0x7f090000;
-        public static final int imageView2=0x7f090006;
-        public static final int ok_button=0x7f090003;
-        public static final int or_message=0x7f090004;
-        public static final int scan_qr_message=0x7f090005;
+        public static final int action_settings=0x7f0a0008;
+        public static final int btSpeak=0x7f0a0007;
+        public static final int connect_message=0x7f0a0001;
+        public static final int enter_code=0x7f0a0002;
+        public static final int imageView1=0x7f0a0000;
+        public static final int imageView2=0x7f0a0006;
+        public static final int ok_button=0x7f0a0003;
+        public static final int or_message=0x7f0a0004;
+        public static final int scan_qr_message=0x7f0a0005;
     }
     public static final class layout {
         public static final int activity_homescreen=0x7f030000;
-        public static final int activity_send_code=0x7f030001;
+        public static final int activity_search_music=0x7f030001;
+        public static final int activity_send_code=0x7f030002;
     }
     public static final class menu {
-        public static final int send_code=0x7f080000;
+        public static final int search_music=0x7f090000;
+        public static final int send_code=0x7f090001;
     }
     public static final class string {
         public static final int action_settings=0x7f060007;
         public static final int app_name=0x7f060000;
+        public static final int btSpeak=0x7f060009;
         public static final int button_OK=0x7f060005;
         public static final int code_hint=0x7f060004;
         public static final int connect_message=0x7f060003;
+        public static final int etSearchHint=0x7f06000e;
         public static final int hello_world=0x7f060008;
+        public static final int menu_settings=0x7f06000a;
         public static final int or_message=0x7f060001;
+        public static final int sNoOfMatches=0x7f06000d;
         public static final int scan_qr_message=0x7f060002;
+        public static final int title_activity_search_music=0x7f06000f;
         public static final int title_activity_send_code=0x7f060006;
+        public static final int title_activity_voice_recognition=0x7f06000b;
+        public static final int tvTextMatches=0x7f06000c;
     }
     public static final class style {
         /** 
@@ -86,15 +100,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
-        public static final int ButtonBar=0x7f070003;
-        public static final int ButtonBarButton=0x7f070004;
-        public static final int FullscreenActionBarStyle=0x7f070005;
-        public static final int FullscreenTheme=0x7f070002;
+        public static final int AppTheme=0x7f080001;
+        public static final int ButtonBar=0x7f080003;
+        public static final int ButtonBarButton=0x7f080004;
+        public static final int FullscreenActionBarStyle=0x7f080005;
+        public static final int FullscreenTheme=0x7f080002;
     }
     public static final class styleable {
         /** 

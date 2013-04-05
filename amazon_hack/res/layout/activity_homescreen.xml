@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".HomescreenActivity" >
 
-    <ImageView
+        <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         android:layout_below="@id/enter_code"
         android:onClick="sendCode" />
 
- <TextView
+ 	<TextView
         android:id="@+id/or_message"
         android:text="@string/or_message"
         android:gravity="center_horizontal"
@@ -67,12 +67,14 @@
         android:ems="10" />
    <ImageView
         android:id="@+id/imageView2"
+        android:clickable="true"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@drawable/camera"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/scan_qr_message"
+        android:onClick="scanQR"
         android:src="@drawable/camera" >
     </ImageView>
 </RelativeLayout>

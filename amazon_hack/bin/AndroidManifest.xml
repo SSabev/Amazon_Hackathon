@@ -8,6 +8,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -31,6 +33,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.amazon_hack.HomescreenActivity" />
+        </activity>
+        <activity
+            android:name="com.example.amazon_hack.SearchMusicActivity"
+            android:label="@string/title_activity_search_music"
+            android:parentActivityName="HomescreenActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomescreenActivity" />
         </activity>
     </application>
 
