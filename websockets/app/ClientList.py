@@ -42,3 +42,6 @@ class ClientList(object):
             print "User: %s, random value: %s"%(client, self.clients[client])
 
         return counter
+
+    def get_sess_id(self, client):
+        return self.clients.get(client)
