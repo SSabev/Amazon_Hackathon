@@ -7,11 +7,13 @@ from app import app
 def index():
     return render_template('index.html')
 
+
 @app.route('/add')
 def add_clients():
     app.clients.add_client(request.remote_addr)
     app.clients.list_clients()
     return redirect(url_for('index'))
+
 
 @app.route('/remove')
 def add_clients():
