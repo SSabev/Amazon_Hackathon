@@ -1,12 +1,9 @@
 package com.example.amazon_hack;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -70,9 +67,29 @@ public class HomescreenActivity extends Activity {
     	startActivity(intent);
     }
 
+    public void scanQR(View view) {
+    	IntentIntegrator intIntegrator = new IntentIntegrator(HomescreenActivity.this);
+    	intIntegrator.initiateScan();
+    	
+    }
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == 0) {
+
+	        if (resultCode == RESULT_OK) {
+	            String contents = data.getStringExtra("SCAN_RESULT");
+	        }
+	        if(resultCode == RESULT_CANCELED){
+	            //handle cancel
+	        }
+	    }
+	}
 }
