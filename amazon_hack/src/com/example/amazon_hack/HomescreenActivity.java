@@ -1,95 +1,138 @@
 package com.example.amazon_hack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.example.amazon_hack.util.SystemUiHider;
-
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- *
- * @see SystemUiHider
- */
 public class HomescreenActivity extends Activity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
+ private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+ private EditText metTextHint;
+ private ListView mlvTextMatches;
+ private Spinner msTextMatches;
+ private ImageButton mbtSpeak;
 
-    /**
-     * If set, will toggle the system UI visibility upon interaction. Otherwise,
-     * will show the system UI visibility upon interaction.
-     */
-    private static final boolean TOGGLE_ON_CLICK = true;
+ @Override
+ public void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_homescreen);
+//  metTextHint = (EditText) findViewById(R.id.etTextHint);
+//  mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
+//  msTextMatches = (Spinner) findViewById(R.id.sNoOfMatches);
+  mbtSpeak = (ImageButton) findViewById(R.id.btSpeak);
+  Log.i("yolo", "success"); 
+  checkVoiceRecognition();
+ }
 
-    /**
-     * The flags to pass to {@link SystemUiHider#getInstance}.
-     */
-    private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+ public void checkVoiceRecognition() {
+  // Check if voice recognition is present
+  PackageManager pm = getPackageManager();
+  List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(
+    RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+  if (activities.size() == 0) {
+   mbtSpeak.setEnabled(false);
+//   mbtSpeak.setText("Voice recognizer not present");
+   Toast.makeText(this, "Voice recognizer not present",
+     Toast.LENGTH_SHORT).show();
+  }
+ }
 
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
-    
-    public final static String EXTRA_MESSAGE = "com.example.amazon_hack.MESSAGE";
+ public void speak(View view) {
+  Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  // Specify the calling package to identify your application
+  intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass()
+    .getPackage().getName());
 
-        setContentView(R.layout.activity_homescreen);
+  // Display an hint to the user about what he should say.
+//  intent.putExtra(RecognizerIntent.EXTRA_PROMPT, metTextHint.getText()
+//    .toString());
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-//        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+  // Given an hint to the recognizer about what the user is going to say
+  //There are two form of language model available
+  //1.LANGUAGE_MODEL_WEB_SEARCH : For short phrases
+  //2.LANGUAGE_MODEL_FREE_FORM  : If not sure about the words or phrases and its domain.
+intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+    RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+
+  // If number of Matches is not selected then return show toast message
+//  if (msTextMatches.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
+//   Toast.makeText(this, "Please select No. of Matches from spinner",
+//     Toast.LENGTH_SHORT).show();
+//   return;
+//  }
+
+  int noOfMatches = 1;
+  // Specify how many results you want to receive. The results will be
+  // sorted where the first result is the one with higher confidence.
+  intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, noOfMatches);
+  //Start the Voice recognizer activity for the result.
+  startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
+ }
+
+ @Override
+ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
+
+   //If Voice recognition is successful then it returns RESULT_OK
+   if(resultCode == RESULT_OK) {
+
+    ArrayList<String> textMatchList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+    if (!textMatchList.isEmpty()) {
+     // If first Match contains the 'search' word
+     // Then start web search.
+     if (textMatchList.get(0).contains("search")) {
+
+        String searchQuery = textMatchList.get(0);
+                                           searchQuery = searchQuery.replace("search","");
+        Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
+        search.putExtra(SearchManager.QUERY, searchQuery);
+        startActivity(search);
+     } else {
+         // populate the Matches
+    	 Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
+         search.putExtra(SearchManager.QUERY, textMatchList.get(0));
+         startActivity(search);
+//         mlvTextMatches
+//      .setAdapter(new ArrayAdapter<String>(this,
+//        android.R.layout.simple_list_item_1,
+//        textMatchList));
+     }
+
     }
-
-    public void sendCode(View view) {
-    	// DO smth
-    	Intent intent = new Intent(this, SendCodeActivity.class);
-    	EditText editText = (EditText) findViewById(R.id.enter_code);
-    	String message = editText.getText().toString();
-    	intent.putExtra(EXTRA_MESSAGE, message);
-    	startActivity(intent);
-    }
-
-    public void scanQR(View view) {
-    	IntentIntegrator intIntegrator = new IntentIntegrator(HomescreenActivity.this);
-    	intIntegrator.initiateScan();
-    	
-    }
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == 0) {
-
-	        if (resultCode == RESULT_OK) {
-	            String contents = data.getStringExtra("SCAN_RESULT");
-	        }
-	        if(resultCode == RESULT_CANCELED){
-	            //handle cancel
-	        }
-	    }
-	}
+   //Result code for various error.
+   }else if(resultCode == RecognizerIntent.RESULT_AUDIO_ERROR){
+    showToastMessage("Audio Error");
+   }else if(resultCode == RecognizerIntent.RESULT_CLIENT_ERROR){
+    showToastMessage("Client Error");
+   }else if(resultCode == RecognizerIntent.RESULT_NETWORK_ERROR){
+    showToastMessage("Network Error");
+   }else if(resultCode == RecognizerIntent.RESULT_NO_MATCH){
+    showToastMessage("No Match");
+   }else if(resultCode == RecognizerIntent.RESULT_SERVER_ERROR){
+    showToastMessage("Server Error");
+   }
+  super.onActivityResult(requestCode, resultCode, data);
+ }
+ /**
+ * Helper method to show the toast message
+ **/
+ void showToastMessage(String message){
+  Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+ }
 }
