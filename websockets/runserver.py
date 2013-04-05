@@ -7,5 +7,4 @@ from app import my_app
 
 if __name__ == '__main__':
     http_server = WSGIServer(('',8000), my_app, handler_class=WebSocketHandler)
-    print "yolo"
     http_server.serve_forever()
