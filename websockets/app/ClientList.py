@@ -1,7 +1,6 @@
 # coding: utf-8
 import random
 
-
 class ClientList(object):
     """
     Adding a simple client list of all the active connections.
@@ -37,5 +36,9 @@ class ClientList(object):
         """
         Pretty prints the clients for pretty purposes.
         """
+        counter = 0
         for client in self.clients.keys():
+            counter +=1 
             print "User: %s, random value: %s"%(client, self.clients[client])
+
+        return counter

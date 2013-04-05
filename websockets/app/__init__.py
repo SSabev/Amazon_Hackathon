@@ -14,7 +14,8 @@ def my_app(environ, start_response):
     path = environ["PATH_INFO"]  
     if path == "/":  
         return app(environ, start_response)  
-    elif path == "/websocket":  
+    elif "/websocket" in path:
+        print environ
         handle_websocket(environ["wsgi.websocket"])   
     else:  
         return app(environ, start_response)  
