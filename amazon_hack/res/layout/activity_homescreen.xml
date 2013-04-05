@@ -77,15 +77,4 @@
         android:onClick="scanQR"
         android:src="@drawable/camera" >
     </ImageView>
-    <ImageButton
-        android:contentDescription="@drawable/mic"
-        android:background="@drawable/mic"
-        android:id="@+id/btSpeak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="speak"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageView2"
-        android:src="@drawable/mic" 
-        tools:context=".HomescreenActivity" />
 </RelativeLayout>

@@ -53,10 +53,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class layout {
         public static final int activity_homescreen=0x7f030000;
-        public static final int activity_send_code=0x7f030001;
+        public static final int activity_search_music=0x7f030001;
+        public static final int activity_send_code=0x7f030002;
     }
     public static final class menu {
-        public static final int send_code=0x7f090000;
+        public static final int search_music=0x7f090000;
+        public static final int send_code=0x7f090001;
     }
     public static final class string {
         public static final int action_settings=0x7f060007;
@@ -71,6 +73,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int or_message=0x7f060001;
         public static final int sNoOfMatches=0x7f06000d;
         public static final int scan_qr_message=0x7f060002;
+        public static final int title_activity_search_music=0x7f06000f;
         public static final int title_activity_send_code=0x7f060006;
         public static final int title_activity_voice_recognition=0x7f06000b;
         public static final int tvTextMatches=0x7f06000c;
