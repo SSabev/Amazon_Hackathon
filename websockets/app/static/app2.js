@@ -12,18 +12,6 @@ $(function() {
         };
     };
 
-    $('#chat_form input[name=text]').focus();
-
-    $("#chat_form").on('submit', function(e){
-        e.preventDefault();
-
-        var input = $('#chat_form input[name=text]');
-        var message = $(input).val();
-        $(input).val('');
-
-        ws.send(JSON.stringify({'output': message}));
-    });
-    
     var currentURL = window.location.hostname + window.location.pathname;
     var src="http://chart.googleapis.com/chart?cht=qr&chl=http://" + currentURL + "&chs=250x250";
     var qrImg=document.createElement("img");

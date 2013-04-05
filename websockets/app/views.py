@@ -1,5 +1,6 @@
 # coding: utf-8
 from flask import render_template, request, redirect, url_for
+import json
 
 from app import app
 
@@ -30,6 +31,9 @@ def listen(websocket):
         return render_template('listen.html', websocket=websocket)
     else:
         params = request.values['content']
+
+        ws = app.client.get_sess_id(websocket)
+        ws.send(json.dumps({'output': params}))
         print params
         print "yolo"
 
