@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Amazon Hackathon</string>
+    <string name="or_message">..or..</string>
+    <string name="scan_qr_message">Scan the QR image</string>
+    <string name="connect_message">Connect your phone to your computer in one of the following ways </string>
+    <string name="code_hint">Enter your code here..</string>
+    <string name="button_OK">Go</string>
+    <string name="title_activity_send_code">SendCodeActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>

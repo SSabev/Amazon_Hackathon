@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical"
+    tools:context=".HomescreenActivity" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@drawable/connect"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/connect" >
+    </ImageView>
+	<TextView
+        android:id="@+id/connect_message"
+        android:text="@string/connect_message"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/enter_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/connect_message"
+        android:hint="@string/code_hint" />
+
+     <Button
+        android:id="@+id/ok_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/button_OK"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/enter_code"
+        android:onClick="sendCode" />
+
+ <TextView
+        android:id="@+id/or_message"
+        android:text="@string/or_message"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ok_button"
+        android:ems="10" />
+   <TextView
+        android:id="@+id/scan_qr_message"
+        android:text="@string/scan_qr_message"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/or_message"
+        android:ems="10" />
+   <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@drawable/camera"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/scan_qr_message"
+        android:src="@drawable/camera" >
+    </ImageView>
+</RelativeLayout>
