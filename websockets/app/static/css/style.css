@@ -1,6 +1,7 @@
 /* Put your CSS here */
 html, body {
     margin: 0;
+    color: #fff;
 }
 body {
     background: url("../images/city.jpg");
