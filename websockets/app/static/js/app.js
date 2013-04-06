@@ -23,7 +23,7 @@ App.HomeView = Ember.View.extend({
         var jug = new Juggernaut;
             jug.subscribe(sessID, function(data){
             console.log("Got data: " + data);
-            return App.musicController.play();
+            // return App.musicController.play();
         });
 
         var currentURL = window.location.hostname + ':8000:/listen/' + sessID;
@@ -35,11 +35,6 @@ App.HomeView = Ember.View.extend({
         qrImg.setAttribute('width', '250px');
 
        $('#qrcode').prepend(qrImg);
-
-        window.onbeforeunload = function() {
-            ws.onclose = function () {};
-            ws.close()
-        };
     }
 });
 
