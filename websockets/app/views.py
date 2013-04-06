@@ -5,15 +5,15 @@ import json
 import random
 import copy
 import redis
-from apirequests import getsong, amazonscr
+import getsong, amazonscr
 
 
 from app import app
 
 @app.route('/', methods=["GET", "POST"])
 def index():
-    counter = app.clients.list_clients()
-    return render_template('index.html', num_clients = counter)
+    # counter = app.clients.list_clients()
+    return redirect(url_for('listen', client_id = random.randint(1000, 9999)))
 
 
 # @app.route('/add', methods=["GET", "POST"])
@@ -56,7 +56,7 @@ def listen(client_id):
                 "song_id": song_id
             }
 
-        if not amazon.error?:
+        if not amazon.error:
             data["amazon"] = { 
                 "link" : amazon.oneclickbuy,
                 "price" : amazon.price,
