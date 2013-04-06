@@ -4,21 +4,27 @@
       android:layout_width="fill_parent"
   android:layout_height="fill_parent">
     <!-- Here you put the rest of your current view-->
-<RelativeLayout
 
+	<RelativeLayout
     android:gravity="center"
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     android:orientation="vertical"
     tools:context=".HomescreenActivity" >
-
+	<ImageView
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+		android:layout_centerInParent="true"
+		android:scaleType="centerCrop"
+	    android:src="@drawable/city"
+	></ImageView>	    
     <ImageView
         android:id="@+id/logo"
+        android:background="#80000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/imageView1"
         android:contentDescription="@drawable/logo"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo" >
@@ -37,12 +43,15 @@
 	<TextView
         android:id="@+id/connect_message"
         android:text="@string/connect_message"
-        android:textSize="15sp"
+        android:textSize="25sp"
+		style="@style/AudioFileInfoOverlayText"
+        android:textColor="#ffffff"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageView1"
         android:layout_centerHorizontal="true"
+        android:background="#80000000"
         android:ems="10" />
 	<View
         android:id="@+id/view2"
@@ -55,8 +64,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:textSize="20sp"
         android:layout_below="@id/view2"
-        android:hint="@string/code_hint" />
+        android:hint="@string/code_hint"
+		style="@style/AudioFileInfoOverlayText"
+        android:textColorHint="#000000"/>
 
      <Button
         android:id="@+id/ok_button"
@@ -71,26 +83,43 @@
  	<TextView
         android:id="@+id/or_message"
         android:text="@string/or_message"
-        android:textSize="20sp"
         android:gravity="center_horizontal"
         android:layout_width="wrap_content"
+        android:textSize="25sp"
+		style="@style/AudioFileInfoOverlayText"
+        android:textColor="#ffffff"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:background="#80000000"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/ok_button"
         android:ems="10" />
    <TextView
-		android:textSize="20sp"
         android:id="@+id/scan_qr_message"
         android:text="@string/scan_qr_message"
+        android:background="#80000000"
         android:gravity="center_horizontal"
         android:layout_width="wrap_content"
+        android:textSize="25sp"
+		style="@style/AudioFileInfoOverlayText"
+        android:textColor="#ffffff"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/or_message"
         android:ems="10" />
-
+	<View
+        android:id="@+id/view3"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/scan_qr_message"
+        android:layout_height="30dp">
+    </View>	
+    <View
+        android:id="@+id/view4"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/view3"
+        android:layout_height="30dp">
+    </View>
    <ImageView
         android:id="@+id/imageView2"
         android:clickable="true"
@@ -99,7 +128,7 @@
         android:layout_gravity="center_horizontal"
         android:contentDescription="@drawable/camera"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/scan_qr_message"
+        android:layout_below="@id/view4"
         android:onClick="scanQR"
         android:src="@drawable/camera" >
     </ImageView>

@@ -1,30 +1,66 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="fill_parent"
+    android:background="#000000"
+	android:layout_height="fill_parent">
+    <!-- Here you put the rest of your current view-->
+
+	<RelativeLayout
     android:gravity="center"
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     android:orientation="vertical"
     tools:context=".SearchMusicActivity" >
 	<ImageView
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+		android:layout_centerInParent="true"
+		android:scaleType="centerCrop"
+	    android:src="@drawable/city"
+	></ImageView>	    
+    <ImageView
         android:id="@+id/logo"
+        android:background="#80000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:contentDescription="@drawable/logo"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/logo" >
     </ImageView>
+        <View
+        android:id="@+id/view2"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/logo"
+        android:layout_height="30dp">
+    </View>
+    <View
+        android:id="@+id/view6"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/view2"
+        android:layout_height="30dp">
+    </View>
+      <View
+        android:id="@+id/view9"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/view6"
+        android:layout_height="30dp">
+    </View>
     
 	<EditText
+	    android:textColorHint="#000000"
         android:id="@+id/enter_content"
         android:layout_width="match_parent"
+        android:textColor="#ffffff"
+		style="@style/AudioFileInfoOverlayText"
+        android:textSize="20sp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:hint="@string/content_hint"
-        android:layout_below="@id/logo"
+        android:layout_below="@id/view9"
         android:inputType="textNoSuggestions"
-        android:textColor="#ffffff"
          />
 	<Button
         android:id="@+id/submit_button"
@@ -35,14 +71,24 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/enter_content"
         android:onClick="submitContent" />
+		<View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/submit_button"
+        android:layout_height="30dp">
+    </View> 
+
 	<TextView
         android:id="@+id/or_message2"
         android:text="@string/or_message"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="25sp"
+		style="@style/AudioFileInfoOverlayText"
+        android:background="#80000000"
         android:textColor="#ffffff"
-        android:layout_below="@id/submit_button"
+        android:layout_below="@id/view1"
         android:layout_centerHorizontal="true"
         android:ems="10" />
 	<TextView
@@ -52,20 +98,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/or_message2"
+        android:textSize="25sp"
+		style="@style/AudioFileInfoOverlayText"
+        android:background="#80000000"
         android:textColor="#ffffff"
         android:layout_centerHorizontal="true"
         android:ems="10" />
+		<View
+        android:id="@+id/view4"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/type_message"
+        android:layout_height="30dp">
+    </View>
+		<View
+        android:id="@+id/view5"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/view4"
+        android:layout_height="30dp">
+    </View>
+		
 	<ImageButton
         android:contentDescription="@drawable/mic"
-        android:background="@drawable/mic"
+        android:background="#80000000"
         android:id="@+id/btSpeak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="speak"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/type_message"
+        android:layout_below="@id/view5"
         android:src="@drawable/mic" 
         tools:context=".HomescreenActivity" />
+		<View
+        android:id="@+id/view7"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/btSpeak"
+        android:layout_height="30dp">
+    </View>
 	<ImageView
 	    android:id="@+id/curly_bottom"
 	    android:src="@drawable/curly"
@@ -75,3 +143,4 @@
 	    android:layout_height="wrap_content">
     </ImageView>
 </RelativeLayout>
+</ScrollView>
