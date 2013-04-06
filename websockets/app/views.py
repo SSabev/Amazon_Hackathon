@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for
 from flask.wrappers import Request, Response
 import json
 import random
+import copy
 
 from app import app
 
@@ -31,7 +32,7 @@ def register(client_id):
     environ = request.environ
     print "socket"
     ws = request.environ.get('wsgi.websocket')
-    app.clients[client_id] = ws
+    app.clients[client_id] = copy.deepcopy(ws)
     return Response("")
 
 
@@ -43,6 +44,7 @@ def listen(client_id):
     else:
         print "post"
         params = request.values['content']
+        print app.clients
         ws = app.clients[client_id]
         ws.send(json.dumps({'output': params}))
         print params
