@@ -17,11 +17,6 @@
       </nav>
     </header>
 
-    <div class="player">
-      
-
-      <iframe id="sc-widget" width="960px" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true&auto_play=true"></iframe>
-    </div>
 
     {{outlet}}
 
@@ -29,11 +24,13 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
-    <ul>
-    {{#each item in model}}
-      <li>{{item}}</li>
-    {{/each}}
-    </ul>
+
+    {{#view App.PlayerView}}
+      <div class="player">
+        <iframe id="sc-widget" width="960px" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true&auto_play=true"></iframe>
+      </div>
+    {{/view}}
+    
   </script>
 
   <script type="text/x-handlebars" data-template-name="play">
@@ -47,28 +44,9 @@
   <script src="js/libs/jquery-1.9.1.js"></script>
   <script src="js/libs/handlebars-1.0.0-rc.3.js"></script>
   <script src="js/libs/ember-1.0.0-rc.2.js"></script>
+  <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
   <script src="js/app.js"></script>
   <script type="text/javascript" src="js/libs/retina.js"></script>
-  <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    (function(){
-      var widgetIframe = document.getElementById('sc-widget'),
-          widget       = SC.Widget(widgetIframe),
-          newSoundUrl = 'http://api.soundcloud.com/tracks/13692671';
-
-      widget.bind(SC.Widget.Events.READY, function() {
-        // load new widget
-        alert("F");
-        widget.bind(SC.Widget.Events.FINISH, function() {
-          widget.load(newSoundUrl, {
-            show_artwork: false
-          });
-          alert("U");
-        });
-      });
-
-    }());
-  </script>
 
 </body>
 </html>
