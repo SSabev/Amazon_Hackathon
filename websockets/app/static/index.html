@@ -11,10 +11,6 @@
   <script type="text/x-handlebars">
     <header>
       <div class="logo">{{#linkTo "index"}}<img src="images/logo.png">{{/linkTo}}</div>
-      <nav>
-        {{#linkTo "play"}}Play{{/linkTo}}
-        {{#linkTo "about"}}About{{/linkTo}}
-      </nav>
     </header>
 
 
@@ -25,7 +21,8 @@
 
   <script type="text/x-handlebars" data-template-name="index">
     {{#view App.HomeView}}
-      <div id="qrcode"></div>
+      <div class="cont"><div class="qrcode"></div></div>
+      <div id="pl"></pl>
     {{/view}}
   </script>
 

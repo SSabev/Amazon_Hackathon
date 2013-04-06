@@ -50,7 +50,7 @@ $(document).ready(function() {
             $('#qrcode').empty();
             var s_id = data["soundcloud"]["song_id"];
             var sc = '<div class="player"><iframe id="sc-widget" width="960px" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' + s_id + '&show_artwork=true&auto_play=true"></iframe></div>'
-            $('#qrcode').append(sc);
+            $('#pl').append(sc);
             var widgetIframe = document.getElementById('sc-widget'),
                 widget       = SC.Widget(widgetIframe),
                 newSoundUrl = 'http://api.soundcloud.com/tracks/'+ data["soundcloud"]["song_id"];

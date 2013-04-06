@@ -16,7 +16,11 @@ header {
         margin: 10px auto;
     }
 
-.player {
+.qrcode {
+    width: 50px;
+    margin: 50px auto;
+}
+.player, .cont {
     width: 960px;
     margin: 50px auto;
 }
