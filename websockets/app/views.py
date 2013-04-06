@@ -61,7 +61,8 @@ def listen(client_id):
                 "link" : amazon.oneclickbuy,
                 "price" : amazon.price,
                 "title" : amazon.name,
-                "artist" : amazon.artist 
+                "artist" : amazon.artist
+                "album_link" : amazon.albumbuylink 
             }
 
         msg = {
