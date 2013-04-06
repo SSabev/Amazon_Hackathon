@@ -23,6 +23,33 @@ App.Song = DS.Model.extend({
     album: DS.attr('string')
 });
 
+App.HomeView = Ember.View.extend({
+    didInsertElement: function() {
+        var ws_URL ='';
+        var latest = document.URL.split('/');
+        var sessID = latest[latest.length-1];
+        var jug = new Juggernaut;
+            jug.subscribe(sessID, function(data){
+            console.log("Got data: " + data);
+        });
+
+        var currentURL = window.location.hostname + window.location.pathname;
+        var src="http://chart.googleapis.com/chart?cht=qr&chl=http://" + currentURL + "&chs=250x250";
+        var qrImg=document.createElement("img");
+        qrImg.setAttribute('src', src);
+        qrImg.setAttribute('alt', 'QR Code');
+        qrImg.setAttribute('height', '250px');
+        qrImg.setAttribute('width', '250px');
+
+       $('#qrcode').prepend(qrImg);
+
+        window.onbeforeunload = function() {
+            ws.onclose = function () {};
+            ws.close()
+        };
+    }
+});
+
 App.PlayerView = Ember.View.extend({
     didInsertElement: function() {
         var widgetIframe = document.getElementById('sc-widget'),
