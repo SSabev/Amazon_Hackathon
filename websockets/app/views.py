@@ -13,7 +13,7 @@ from app import app
 @app.route('/', methods=["GET", "POST"])
 def index():
     # counter = app.clients.list_clients()
-    return redirect(url_for('listen', client_id = random.randint(1000, 9999)))
+    return redirect(url_for('static', filename='index.html'))
 
 
 # @app.route('/add', methods=["GET", "POST"])
@@ -61,7 +61,8 @@ def listen(client_id):
                 "link" : amazon.oneclickbuy,
                 "price" : amazon.price,
                 "title" : amazon.name,
-                "artist" : amazon.artist 
+                "artist" : amazon.artist,
+                "album_link" : amazon.albumbuylink 
             }
 
         msg = {

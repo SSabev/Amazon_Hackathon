@@ -46,6 +46,7 @@ class Buymp3(object):
         self.name = tds[1].text[3:]
         self.artist = tds[2].text
         self.album = tds[3].text
+        self.albumbuylink = tds[3].a.get('href')
 
     def process(self):
         self.getSongTables()
