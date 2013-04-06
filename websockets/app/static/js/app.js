@@ -17,24 +17,7 @@ App.musicController = Ember.Object.create({
 
 App.HomeView = Ember.View.extend({
     didInsertElement: function() {
-        var ws_URL ='';
-        var sessID = Math.floor(Math.random()*9999);
-        console.log(sessID);
-        var jug = new Juggernaut;
-        jug.subscribe(sessID, function(data){ 
-            console.log("Got data: " + data);
-            // return App.musicController.play();
-        });
-
-        var currentURL = window.location.hostname + ':8000:/listen/' + sessID;
-        var src="http://chart.googleapis.com/chart?cht=qr&chl=http://" + currentURL + "&chs=250x250";
-        var qrImg=document.createElement("img");
-        qrImg.setAttribute('src', src);
-        qrImg.setAttribute('alt', 'QR Code');
-        qrImg.setAttribute('height', '250px');
-        qrImg.setAttribute('width', '250px');
-
-       $('#qrcode').prepend(qrImg);
+        
     }
 });
 
@@ -54,6 +37,30 @@ App.PlayerView = Ember.View.extend({
         });
     },
 });
+
+
+$(document).ready(function() {
+        var ws_URL ='';
+        var sessID = Math.floor(Math.random()*9999);
+        console.log(sessID);
+        var jug = new Juggernaut;
+        jug.subscribe(sessID, function(data){ 
+            console.log("Got data: " + data);
+            // return App.musicController.play();
+        });
+
+        var currentURL = window.location.hostname + ':8000:/listen/' + sessID;
+        var src="http://chart.googleapis.com/chart?cht=qr&chl=http://" + currentURL + "&chs=250x250";
+        var qrImg=document.createElement("img");
+        qrImg.setAttribute('src', src);
+        qrImg.setAttribute('alt', 'QR Code');
+        qrImg.setAttribute('height', '250px');
+        qrImg.setAttribute('width', '250px');
+
+       $('#qrcode').prepend(qrImg);
+
+   }); 
+
 
 
 
