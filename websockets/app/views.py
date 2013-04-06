@@ -5,6 +5,8 @@ import json
 import random
 import copy
 import redis
+from apirequests import getsong, amazonscr
+
 
 from app import app
 
@@ -14,40 +16,56 @@ def index():
     return render_template('index.html', num_clients = counter)
 
 
-@app.route('/add', methods=["GET", "POST"])
-def add_clients():
-    # app.clients.add_client(request.remote_addr)
-    # counter = app.clients.list_clients()
-    # sess_id = app.clients.get_sess_id(request.remote_addr)
-    return redirect(url_for('listen', client_id = random.randint(1000, 9999)))
+# @app.route('/add', methods=["GET", "POST"])
+# def add_clients():
+#     # app.clients.add_client(request.remote_addr)
+#     # counter = app.clients.list_clients()
+#     # sess_id = app.clients.get_sess_id(request.remote_addr)
+#     return redirect(url_for('listen', client_id = random.randint(1000, 9999)))
 
 
-@app.route('/remove', methods=["GET", "POST"])
-def remove_clients():
-    app.clients.remove_client(request.remote_addr)
-    counter = app.clients.list_clients()
-    return redirect(url_for('index',num_clients=counter))
+# @app.route('/remove', methods=["GET", "POST"])
+# def remove_clients():
+#     app.clients.remove_client(request.remote_addr)
+#     counter = app.clients.list_clients()
+#     return redirect(url_for('index',num_clients=counter))
 
-@app.route('/register/<client_id>')
-def register(client_id):
-    environ = request.environ
-    print "socket"
-    ws = request.environ.get('wsgi.websocket')
-    app.clients[client_id] = copy.deepcopy(ws)
-    return Response("")
+# @app.route('/register/<client_id>')
+# def register(client_id):
+#     environ = request.environ
+#     print "socket"
+#     ws = request.environ.get('wsgi.websocket')
+#     app.clients[client_id] = copy.deepcopy(ws)
+#     return Response("")
 
 
 @app.route('/listen/<client_id>', methods=["GET", "POST"])
 def listen(client_id):
     if request.method == 'GET':
-        print "get"
         return render_template('listen.html', websocket=client_id)
     else:
-        print "post"
-        params = request.values['content']
+        query = request.values['content']
+        
+        data = { "query": query }
+
+        amazon = amazonscr.Buymp3(query)
+        song_id = getsong(query)
+
+        if song_id!=-1:
+            data["soundcloud"] = {
+                "song_id": song_id
+            }
+
+        if not amazon.error?:
+            data["amazon"] = { 
+                "link" : amazon.oneclickbuy,
+                "price" : amazon.price,
+                "title" : amazon.title 
+            }
+
         msg = {
           "channels": [client_id],
-          "data": params
+          "data": data
         }
 
         r = redis.Redis()
