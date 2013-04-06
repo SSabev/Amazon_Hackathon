@@ -9,18 +9,10 @@ App.Router.map(function() {
     });
 });
 
-App.IndexRoute = Ember.Route.extend({
-
-});
-
-App.Song = DS.Model.extend({
-    song_id: DS.attr('integer'),
-
-    link: DS.attr('string'),
-    price: DS.attr('string'),
-    artist: DS.attr('string'),
-    song_title: DS.attr('string'),
-    album: DS.attr('string')
+App.musicController = Ember.Object.create({
+    play: function() {
+        console.log("asd");
+    }
 });
 
 App.HomeView = Ember.View.extend({
@@ -30,6 +22,7 @@ App.HomeView = Ember.View.extend({
         var jug = new Juggernaut;
             jug.subscribe(sessID, function(data){
             console.log("Got data: " + data);
+            return App.musicController.play();
         });
 
         var currentURL = window.location.hostname + ':8000:/listen/' + sessID;
