@@ -26,14 +26,13 @@ App.Song = DS.Model.extend({
 App.HomeView = Ember.View.extend({
     didInsertElement: function() {
         var ws_URL ='';
-        var latest = document.URL.split('/');
-        var sessID = latest[latest.length-1];
+        var sessID = Math.floor(Math.random()*9999);
         var jug = new Juggernaut;
             jug.subscribe(sessID, function(data){
             console.log("Got data: " + data);
         });
 
-        var currentURL = window.location.hostname + window.location.pathname;
+        var currentURL = window.location.hostname + ':8000/listen/' + sessID;
         var src="http://chart.googleapis.com/chart?cht=qr&chl=http://" + currentURL + "&chs=250x250";
         var qrImg=document.createElement("img");
         qrImg.setAttribute('src', src);
