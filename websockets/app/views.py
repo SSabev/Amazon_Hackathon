@@ -60,7 +60,8 @@ def listen(client_id):
             data["amazon"] = { 
                 "link" : amazon.oneclickbuy,
                 "price" : amazon.price,
-                "title" : amazon.title 
+                "title" : amazon.name,
+                "artist" : amazon.artist 
             }
 
         msg = {
