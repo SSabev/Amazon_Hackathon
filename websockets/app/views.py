@@ -4,6 +4,7 @@ from flask.wrappers import Request, Response
 import json
 import random
 import copy
+import redis
 
 from app import app
 
@@ -44,10 +45,12 @@ def listen(client_id):
     else:
         print "post"
         params = request.values['content']
-        print app.clients
-        ws = app.clients[client_id]
-        ws.send(json.dumps({'output': params}))
-        print params
-        print "yolo"
+        msg = {
+          "channels": [client_id],
+          "data": params
+        }
 
-        return render_template('listen.html', websocket=client_id)
+        r = redis.Redis()
+        r.publish("juggernaut", json.dumps(msg))
+
+        return Response("")
