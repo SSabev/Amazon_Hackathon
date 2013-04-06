@@ -19,6 +19,7 @@ App.HomeView = Ember.View.extend({
     didInsertElement: function() {
         var ws_URL ='';
         var sessID = Math.floor(Math.random()*9999);
+        console.log(sessID);
         var jug = new Juggernaut;
             jug.subscribe(sessID, function(data){
             console.log("Got data: " + data);
