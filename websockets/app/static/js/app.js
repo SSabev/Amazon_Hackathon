@@ -41,7 +41,7 @@ App.PlayerView = Ember.View.extend({
 
 $(document).ready(function() {
         var ws_URL ='';
-        var sessID = Math.floor(Math.random()*9999);
+        var sessID = Math.floor(Math.random()*9999).toString();
         console.log(sessID);
         var jug = new Juggernaut;
         jug.subscribe(sessID, function(data){ 
