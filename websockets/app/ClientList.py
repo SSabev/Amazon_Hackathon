@@ -1,6 +1,7 @@
 # coding: utf-8
 import random
 
+
 class ClientList(object):
     """
     Adding a simple client list of all the active connections.
@@ -19,7 +20,7 @@ class ClientList(object):
         return the hash which will serve as a session id.
         """
         if client not in self.clients.keys():
-            self.clients[client] = hex(random.getrandbits(128))[2:-1]
+            self.clients[client] = random.randint(1000, 9999)# hex(random.getrandbits(128))[2:-1]
 
 
     def remove_client(self, client):

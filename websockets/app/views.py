@@ -1,5 +1,10 @@
 # coding: utf-8
 from flask import render_template, request, redirect, url_for
+from flask.wrappers import Request, Response
+import json
+import random
+import copy
+import redis
 
 from app import app
 
@@ -11,10 +16,10 @@ def index():
 
 @app.route('/add', methods=["GET", "POST"])
 def add_clients():
-    app.clients.add_client(request.remote_addr)
-    counter = app.clients.list_clients()
-    sess_id = app.clients.get_sess_id(request.remote_addr)
-    return redirect(url_for('listen', websocket = sess_id))
+    # app.clients.add_client(request.remote_addr)
+    # counter = app.clients.list_clients()
+    # sess_id = app.clients.get_sess_id(request.remote_addr)
+    return redirect(url_for('listen', client_id = random.randint(1000, 9999)))
 
 
 @app.route('/remove', methods=["GET", "POST"])
@@ -23,7 +28,29 @@ def remove_clients():
     counter = app.clients.list_clients()
     return redirect(url_for('index',num_clients=counter))
 
+@app.route('/register/<client_id>')
+def register(client_id):
+    environ = request.environ
+    print "socket"
+    ws = request.environ.get('wsgi.websocket')
+    app.clients[client_id] = copy.deepcopy(ws)
+    return Response("")
 
-@app.route('/listen/<websocket>', methods=["GET", "POST"])
-def listen(websocket):
-    return render_template('listen.html', websocket=websocket)
+
+@app.route('/listen/<client_id>', methods=["GET", "POST"])
+def listen(client_id):
+    if request.method == 'GET':
+        print "get"
+        return render_template('listen.html', websocket=client_id)
+    else:
+        print "post"
+        params = request.values['content']
+        msg = {
+          "channels": [client_id],
+          "data": params
+        }
+
+        r = redis.Redis()
+        r.publish("juggernaut", json.dumps(msg))
+
+        return Response("")
