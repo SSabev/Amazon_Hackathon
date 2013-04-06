@@ -1,5 +1,6 @@
 # coding: utf-8
 from flask import render_template, request, redirect, url_for
+from flask.wrappers import Request, Response
 import json
 import random
 
@@ -25,23 +26,26 @@ def remove_clients():
     counter = app.clients.list_clients()
     return redirect(url_for('index',num_clients=counter))
 
+@app.route('/register/<client_id>')
+def register(client_id):
+    environ = request.environ
+    print "socket"
+    ws = request.environ.get('wsgi.websocket')
+    app.clients[client_id] = ws
+    return Response("")
+
 
 @app.route('/listen/<client_id>', methods=["GET", "POST"])
 def listen(client_id):
-    if "socket" in request.values.keys():
-        print "socket"
-        ws = request.environ["wsgi.websocket"]
-        app.clients[client_id] = ws
-    else:        
-        if request.method == 'GET':
-            print "get"
-            return render_template('listen.html', websocket=client_id)
-        else:
-            print "post"
-            params = request.values['content']
-            ws = app.clients[client_id]
-            ws.send(json.dumps({'output': params}))
-            print params
-            print "yolo"
+    if request.method == 'GET':
+        print "get"
+        return render_template('listen.html', websocket=client_id)
+    else:
+        print "post"
+        params = request.values['content']
+        ws = app.clients[client_id]
+        ws.send(json.dumps({'output': params}))
+        print params
+        print "yolo"
 
-            return render_template('listen.html', websocket=client_id)
+        return render_template('listen.html', websocket=client_id)
