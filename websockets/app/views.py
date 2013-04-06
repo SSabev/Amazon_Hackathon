@@ -5,8 +5,8 @@ import json
 import random
 import copy
 import redis
-import getsong, amazonscr
-
+import amazonscr
+from getsong import getsong
 
 from app import app
 
