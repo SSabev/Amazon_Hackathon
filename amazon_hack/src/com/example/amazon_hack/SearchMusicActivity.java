@@ -3,26 +3,35 @@ package com.example.amazon_hack;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.SearchManager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
-import android.speech.RecognizerIntent;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
+import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.support.v4.app.NavUtils;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class SearchMusicActivity extends Activity {
 	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
 	private ImageButton mbtSpeak;
+	private Button submitButton;
+	private EditText contentText;
+	private String token = "";
+	private String url;
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -61,13 +70,31 @@ public class SearchMusicActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			token = extras.getString("MUSIC_TOKEN");
+		}
+		url = "http://54.244.123.24:8000/listen/" + token;
+		Log.i("TOKEN BABY", token);
 		setContentView(R.layout.activity_search_music);
 		// metTextHint = (EditText) findViewById(R.id.etTextHint);
 		// mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
 		// msTextMatches = (Spinner) findViewById(R.id.sNoOfMatches);
 		mbtSpeak = (ImageButton) findViewById(R.id.btSpeak);
-		Log.i("yolo", "success");
+		submitButton = (Button) findViewById(R.id.submit_button);
+		contentText = (EditText) findViewById(R.id.enter_content);
+
 		checkVoiceRecognition();
+		
+		submitButton.setOnClickListener(
+		        new View.OnClickListener()
+		        {
+		            public void onClick(View view)
+		            {
+		            	String searchData = contentText.getText().toString();
+		            	new SendLinkTask().execute(url, searchData);
+		            }
+		        });
 	}
 
 	public void checkVoiceRecognition() {
@@ -118,6 +145,7 @@ public class SearchMusicActivity extends Activity {
 		startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
@@ -140,10 +168,27 @@ public class SearchMusicActivity extends Activity {
 						startActivity(search);
 					} else {
 						// populate the Matches
-						Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
-						search.putExtra(SearchManager.QUERY,
-								textMatchList.get(0));
-						startActivity(search);
+						// HttpClient httpclient = new DefaultHttpClient();
+						// HttpPost httppost = new
+						// HttpPost("http://54.244.123.24:8000/listen/" +
+						// token);
+						
+						// Add your data
+						List<NameValuePair> nvp = new ArrayList<NameValuePair>(
+								1);
+						nvp.add(new BasicNameValuePair("content", textMatchList
+								.get(0)));
+						String search_data = textMatchList.get(0);
+						// httppost.setEntity(new UrlEncodedFormEntity(nvp));
+
+						// Execute HTTP Post Request
+
+						new SendLinkTask().execute(url, search_data);
+
+						// Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
+						// search.putExtra(SearchManager.QUERY,
+						// textMatchList.get(0));
+						// startActivity(search);
 						// mlvTextMatches
 						// .setAdapter(new ArrayAdapter<String>(this,
 						// android.R.layout.simple_list_item_1,
@@ -173,4 +218,7 @@ public class SearchMusicActivity extends Activity {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 
+	public void submitContent(View view) {
+		
+	}
 }
