@@ -6,7 +6,7 @@
     <string name="scan_qr_message">Scan the QR image</string>
     <string name="connect_message">Connect your phone to your computer in one of the following ways </string>
     <string name="code_hint">Enter your code here..</string>
-    <string name="content_hint">Enter what you want to listen to..</string>
+    <string name="content_hint">Enter the song you want to listen to..</string>
     <string name="type_message">Click the microphone and just say it!</string>
     <string name="button_OK">Go!</string>
     <string name="title_activity_send_code">SendCodeActivity</string>

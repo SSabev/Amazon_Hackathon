@@ -1,5 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+    <!-- Here you put the rest of your current view-->
+<RelativeLayout
+
     android:gravity="center"
     android:layout_gravity="center"
     android:layout_width="match_parent"
@@ -9,10 +15,21 @@
     tools:context=".HomescreenActivity" >
 
     <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imageView1"
+        android:contentDescription="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" >
+
+    </ImageView>
+    <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_below="@id/logo"
         android:contentDescription="@drawable/connect"
         android:layout_centerHorizontal="true"
         android:src="@drawable/connect" >
@@ -20,19 +37,25 @@
 	<TextView
         android:id="@+id/connect_message"
         android:text="@string/connect_message"
+        android:textSize="15sp"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageView1"
         android:layout_centerHorizontal="true"
         android:ems="10" />
-
+	<View
+        android:id="@+id/view2"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/connect_message"
+        android:layout_height="30dp">
+    </View>
     <EditText
         android:id="@+id/enter_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_below="@id/connect_message"
+        android:layout_below="@id/view2"
         android:hint="@string/code_hint" />
 
      <Button
@@ -48,6 +71,7 @@
  	<TextView
         android:id="@+id/or_message"
         android:text="@string/or_message"
+        android:textSize="20sp"
         android:gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,6 +80,7 @@
         android:layout_below="@id/ok_button"
         android:ems="10" />
    <TextView
+		android:textSize="20sp"
         android:id="@+id/scan_qr_message"
         android:text="@string/scan_qr_message"
         android:gravity="center_horizontal"
@@ -65,6 +90,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/or_message"
         android:ems="10" />
+
    <ImageView
         android:id="@+id/imageView2"
         android:clickable="true"
@@ -87,3 +113,4 @@
     </ImageView>
    
 </RelativeLayout>
+</ScrollView>
