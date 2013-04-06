@@ -10,12 +10,18 @@
   
   <script type="text/x-handlebars">
     <header>
-      {{#linkTo "index"}}<strong>Home</strong>{{/linkTo}}
+      <div class="logo">{{#linkTo "index"}}<img src="images/logo.png">{{/linkTo}}</div>
       <nav>
         {{#linkTo "play"}}Play{{/linkTo}}
         {{#linkTo "about"}}About{{/linkTo}}
       </nav>
     </header>
+
+    <div class="player">
+      
+
+      <iframe id="sc-widget" width="960px" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true&auto_play=true"></iframe>
+    </div>
 
     {{outlet}}
 
@@ -42,6 +48,27 @@
   <script src="js/libs/handlebars-1.0.0-rc.3.js"></script>
   <script src="js/libs/ember-1.0.0-rc.2.js"></script>
   <script src="js/app.js"></script>
+  <script type="text/javascript" src="js/libs/retina.js"></script>
+  <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    (function(){
+      var widgetIframe = document.getElementById('sc-widget'),
+          widget       = SC.Widget(widgetIframe),
+          newSoundUrl = 'http://api.soundcloud.com/tracks/13692671';
+
+      widget.bind(SC.Widget.Events.READY, function() {
+        // load new widget
+        alert("F");
+        widget.bind(SC.Widget.Events.FINISH, function() {
+          widget.load(newSoundUrl, {
+            show_artwork: false
+          });
+          alert("U");
+        });
+      });
+
+    }());
+  </script>
 
 </body>
 </html>

@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -83,6 +84,7 @@ public class SearchMusicActivity extends Activity {
 		mbtSpeak = (ImageButton) findViewById(R.id.btSpeak);
 		submitButton = (Button) findViewById(R.id.submit_button);
 		contentText = (EditText) findViewById(R.id.enter_content);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 		checkVoiceRecognition();
 		

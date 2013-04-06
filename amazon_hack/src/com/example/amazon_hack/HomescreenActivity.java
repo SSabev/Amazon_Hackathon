@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -18,6 +19,8 @@ public class HomescreenActivity extends Activity {
 		setContentView(R.layout.activity_homescreen);
 		go_button = (Button)findViewById(R.id.ok_button);
 		code_field   = (EditText)findViewById(R.id.enter_code);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
 		
 		go_button.setOnClickListener(
 		        new View.OnClickListener()
