@@ -10,9 +10,11 @@ class Buymp3(object):
     def __init__(self, query):
         baseurl = "http://www.amazon.co.uk/s/ref=nb_sb_noss_1?url=search-alias%3Ddigital-music&field-keywords="
         queryurl = baseurl + query.replace(" ", '+')
+        self.error = False
         a = ScrapeObject(queryurl)
         a.fetch()
         self.bsoupobj = a.parse_html()
+        self.process()
 
     def getHTML(self):
         return self.bsoupobj
@@ -20,13 +22,26 @@ class Buymp3(object):
     def getSongTables(self):
         temp = self.bsoupobj.find_all('tr')
         self.songtables = []
-        for item in temp:
-            if len(item.findAll(attrs={'class': re.compile(r"titleColOdd")})) == 4:
-                self.songtables.append(item)
+        try:
+            for item in temp:
+                if len(item.findAll(attrs={'class': re.compile(r"titleColOdd")})) == 4:
+                    self.songtables.append(item)
+        except Exception, e:
+            print("No results found!")
+            self.error = True
+            return -1
 
     def getInfo(self):
         # Get only the first result, don't bother with the rest
-        tds = self.songtables[0].findAll(attrs={'class': re.compile(r"titleColOdd")})
+        try:
+            tds = self.songtables[0].findAll(attrs={'class': re.compile(r"titleColOdd")})
+            pricetds = self.songtables[0].findAll(attrs={'class': re.compile(r"priceColOdd")})
+        except Exception, e:
+            print("No results found!")
+            self.error = True
+            return -1
+        self.songduration = pricetds[0].text
+        self.price = pricetds[1].text[1:] + " GBP"
         self.oneclickbuy = self.songtables[0].find_all("a")[-1].get("href")
         self.name = tds[1].text[3:]
         self.artist = tds[2].text

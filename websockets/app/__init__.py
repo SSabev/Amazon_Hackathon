@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.debug = True
 # app.clients = ClientList()
-app.clients = {}
+# app.clients = {}
 
 def my_app(environ, start_response):  
     # print environ
