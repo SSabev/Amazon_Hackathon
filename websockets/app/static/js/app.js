@@ -32,7 +32,7 @@ App.HomeView = Ember.View.extend({
             console.log("Got data: " + data);
         });
 
-        var currentURL = window.location.hostname + ':8000/listen/' + sessID;
+        var currentURL = window.location.hostname + ':8000:/listen/' + sessID;
         var src="http://chart.googleapis.com/chart?cht=qr&chl=http://" + currentURL + "&chs=250x250";
         var qrImg=document.createElement("img");
         qrImg.setAttribute('src', src);
