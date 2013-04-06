@@ -21,7 +21,7 @@ App.HomeView = Ember.View.extend({
         var sessID = Math.floor(Math.random()*9999);
         console.log(sessID);
         var jug = new Juggernaut;
-            jug.subscribe(sessID, function(data){
+        jug.subscribe(sessID, function(data){ 
             console.log("Got data: " + data);
             // return App.musicController.play();
         });
