@@ -4,7 +4,9 @@ html, body {
 }
 body {
     background: url("../images/city.jpg");
-    background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-attachment: fixed;
 }
 
 header {
