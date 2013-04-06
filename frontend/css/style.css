@@ -1,4 +1,22 @@
 /* Put your CSS here */
 html, body {
-    margin: 20px;
+    margin: 0;
+}
+body {
+    background: url("../images/city.jpg");
+    background-repeat: repeat;
+}
+
+header {
+    width: 960px;
+    margin: 0 auto;
+}
+    .logo {
+        width: 237px;
+        margin: 10px auto;
+    }
+
+.player {
+    width: 960px;
+    margin: 50px auto;
 }
