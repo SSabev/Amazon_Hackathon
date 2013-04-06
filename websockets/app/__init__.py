@@ -8,9 +8,11 @@ from ClientList import ClientList
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.debug = True
-app.clients = ClientList()
+# app.clients = ClientList()
+app.clients = {}
 
 def my_app(environ, start_response):  
+    # print environ
     path = environ["PATH_INFO"]  
     if path == "/":  
         return app(environ, start_response)  

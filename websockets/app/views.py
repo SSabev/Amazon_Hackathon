@@ -13,10 +13,10 @@ def index():
 
 @app.route('/add', methods=["GET", "POST"])
 def add_clients():
-    app.clients.add_client(request.remote_addr)
-    counter = app.clients.list_clients()
-    sess_id = app.clients.get_sess_id(request.remote_addr)
-    return redirect(url_for('listen', websocket = random.randint(1000, 9999)))
+    # app.clients.add_client(request.remote_addr)
+    # counter = app.clients.list_clients()
+    # sess_id = app.clients.get_sess_id(request.remote_addr)
+    return redirect(url_for('listen', client_id = random.randint(1000, 9999), socket = "false"))
 
 
 @app.route('/remove', methods=["GET", "POST"])
@@ -28,14 +28,17 @@ def remove_clients():
 
 @app.route('/listen/<client_id>', methods=["GET", "POST"])
 def listen(client_id):
-    if request.method == 'GET':
-        return render_template('listen.html', websocket=client_id)
-    else:
-        params = request.values['content']
+    if request.values['socket']=="true":
+        ws = request.environ["wsgi.websocket"]
+        app.clients[client_id] = ws
+    else:        
+        if request.method == 'GET':
+            return render_template('listen.html', websocket=client_id)
+        else:
+            params = request.values['content']
+            ws = app.clients[client_id]
+            ws.send(json.dumps({'output': params}))
+            print params
+            print "yolo"
 
-        ws = environ["wsgi.websocket"]
-        ws.send(json.dumps({'output': params}))
-        print params
-        print "yolo"
-
-        return render_template('listen.html', websocket=client_id)
+            return render_template('listen.html', websocket=client_id)

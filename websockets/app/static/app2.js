@@ -3,7 +3,7 @@ $(function() {
     var latest = document.URL.split('/');
     var sessID = latest[latest.length-1];
     if ("WebSocket" in window) {
-        ws_URL = "ws://" + document.domain + ":8000/websocket/"+sessID
+        ws_URL = "ws://" + document.domain + ":8000/listen/"+sessID+"&socket=true"
         ws = new WebSocket(ws_URL);
         ws.onmessage = function (msg) {
             var message = JSON.parse(msg.data);
