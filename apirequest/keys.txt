@@ -1,5 +1,0 @@
-AWS access key: AKIAJ5YCFZD42VD7XJPQ
-
-Secret key: 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
-
-Soundcloud client_id: 1271764b213f4a47d125e9e24c898475

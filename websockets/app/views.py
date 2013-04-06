@@ -51,7 +51,7 @@ def listen(client_id):
         amazon = amazonscr.Buymp3(query)
         song_id = getsong(query)
 
-        if song_id!=-1:
+        if song_id>0:
             data["soundcloud"] = {
                 "song_id": song_id
             }
