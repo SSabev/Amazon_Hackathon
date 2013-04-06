@@ -1,6 +1,7 @@
 # coding: utf-8
 from flask import render_template, request, redirect, url_for
 import json
+import random
 
 from app import app
 
@@ -15,7 +16,7 @@ def add_clients():
     app.clients.add_client(request.remote_addr)
     counter = app.clients.list_clients()
     sess_id = app.clients.get_sess_id(request.remote_addr)
-    return redirect(url_for('listen', websocket = sess_id))
+    return redirect(url_for('listen', websocket = random.randint(1000, 9999)))
 
 
 @app.route('/remove', methods=["GET", "POST"])
@@ -25,16 +26,16 @@ def remove_clients():
     return redirect(url_for('index',num_clients=counter))
 
 
-@app.route('/listen/<websocket>', methods=["GET", "POST"])
-def listen(websocket):
+@app.route('/listen/<client_id>', methods=["GET", "POST"])
+def listen(client_id):
     if request.method == 'GET':
-        return render_template('listen.html', websocket=websocket)
+        return render_template('listen.html', websocket=client_id)
     else:
         params = request.values['content']
 
-        ws = app.client.get_sess_id(websocket)
+        ws = environ["wsgi.websocket"]
         ws.send(json.dumps({'output': params}))
         print params
         print "yolo"
 
-        return render_template('listen.html', websocket=websocket)
+        return render_template('listen.html', websocket=client_id)

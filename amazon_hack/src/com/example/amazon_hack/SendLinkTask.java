@@ -29,7 +29,7 @@ public class SendLinkTask extends AsyncTask<String, Void, String> {
 		HttpPost httppost = new HttpPost(urls[0]);
 		List<NameValuePair> nvp = new ArrayList<NameValuePair>(
 				1);
-		nvp.add(new BasicNameValuePair("content", "Beyonce"));
+		nvp.add(new BasicNameValuePair("content", urls[1]));
 		httppost.setEntity(new UrlEncodedFormEntity(nvp));
 		HttpResponse response = httpclient.execute(httppost);
 		Log.i("ti jiweesh samo wednyj", urls[1]);
